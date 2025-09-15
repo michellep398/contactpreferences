@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promptly Marketing Consent Management System</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9ff;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(32, 105, 247, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .promptly-logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2069f7;
+            margin-bottom: 10px;
+        }
+        
+        .title {
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+            font-weight: 400;
+        }
+        
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .system-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 30px 20px;
+            border-radius: 16px;
+            position: relative;
+        }
+        
+        .opt-in-sources {
+            background: #f0fdf4;
+            border: 2px solid #00dd84;
+        }
+        
+        .central-system {
+            background: #fffbeb;
+            border: 2px solid #fdd94d;
+        }
+        
+        .integration-layer {
+            background: #eff6ff;
+            border: 2px solid #2069f7;
+        }
+        
+        .section-title {
+            width: 100%;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .opt-in-sources .section-title {
+            color: #00dd84;
+        }
+        
+        .central-system .section-title {
+            color: #fdd94d;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .integration-layer .section-title {
+            color: #2069f7;
+        }
+        
+        .component {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            min-width: 260px;
+            max-width: 320px;
+            margin: 10px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        
+        .component:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(32, 105, 247, 0.12);
+            border-color: #2069f7;
+        }
+        
+        .opt-in-source {
+            border-color: #00dd84;
+        }
+        
+        .central-component {
+            border-color: #fdd94d;
+            background: #fffef7;
+        }
+        
+        .integration-component {
+            border-color: #2069f7;
+        }
+        
+        .component h3 {
+            margin-top: 0;
+            color: #1a1a1a;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .central-component h3 {
+            color: #2069f7;
+            font-size: 20px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: #555;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #00dd84;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .central-component .feature-list li:before {
+            color: #2069f7;
+            content: "⭐";
+        }
+        
+        .arrow {
+            text-align: center;
+            font-size: 40px;
+            margin: 20px 0;
+            color: #2069f7;
+        }
+        
+        .data-flow {
+            background: #f8f9ff;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 40px;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .data-flow h3 {
+            color: #2069f7;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid #2069f7;
+            transition: all 0.3s ease;
+        }
+        
+        .flow-step:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(32, 105, 247, 0.1);
+        }
+        
+        .step-number {
+            background: #2069f7;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+            font-size: 16px;
+        }
+        
+        .step-text {
+            flex-grow: 1;
+            font-size: 15px;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .step-text strong {
+            color: #2069f7;
+            font-weight: 700;
+        }
+        
+        .technical-requirements {
+            background: #fffbeb;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 40px;
+            border: 2px solid #fdd94d;
+        }
+        
+        .technical-requirements h3 {
+            color: #2069f7;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        
+        .req-item {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 12px;
+            border-left: 4px solid #fdd94d;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .req-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(253, 217, 77, 0.2);
+        }
+        
+        .req-item strong {
+            color: #2069f7;
+            font-weight: 700;
+        }
+        
+        .promptly-highlight {
+            color: #2069f7;
+            font-weight: 700;
+        }
+        
+        .integration-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #2069f7;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="promptly-logo">Promptly</div>
+            <div class="title">Marketing Consent Management System</div>
+            <div class="subtitle">Streamlined patient consent workflows with real-time integration</div>
+        </div>
+        
+        <div class="flow-container">
+            <!-- Opt-in Sources -->
+            <div class="system-section opt-in-sources">
+                <div class="section-title">Patient Touchpoints & Opt-in Sources</div>
+                
+                <div class="component opt-in-source">
+                    <h3>Website Forms</h3>
+                    <ul class="feature-list">
+                        <li>Required SMS consent checkbox</li>
+                        <li>Marketing disclaimer compliance</li>
+                        <li>Service-specific interest capture</li>
+                        <li>Automatic Lead ID generation</li>
+                        <li>Real-time <span class="promptly-highlight">Promptly</span> sync</li>
+                    </ul>
+                </div>
+                
+                <div class="component opt-in-source">
+                    <h3>Patient Portal</h3>
+                    <ul class="feature-list">
+                        <li>Self-service preference controls</li>
+                        <li>Marketing opt-in/opt-out toggle</li>
+                        <li>Separate email/SMS management</li>
+                        <li>Instant preference updates</li>
+                        <li>User-friendly interface</li>
+                    </ul>
+                </div>
+                
+                <div class="component opt-in-source">
+                    <h3>Check-in Kiosk</h3>
+                    <ul class="feature-list">
+                        <li>Service-line specific campaigns</li>
+                        <li>Real-time consent capture</li>
+                        <li>Digital signature support</li>
+                        <li>Automated profile updates</li>
+                        <li>Timestamp logging</li>
+                    </ul>
+                </div>
+                
+                <div class="component opt-in-source">
+                    <h3>Practice Staff Tools</h3>
+                    <ul class="feature-list">
+                        <li>Manual patient flagging system</li>
+                        <li>Staff member audit trail</li>
+                        <li>Required consent confirmation</li>
+                        <li>Override authorization levels</li>
+                        <li>Activity logging</li>
+                    </ul>
+                </div>
+                
+                <div class="component opt-in-source">
+                    <h3>Reminder Messages</h3>
+                    <ul class="feature-list">
+                        <li>Embedded preference links</li>
+                        <li>One-click opt-out functionality</li>
+                        <li>Separate from marketing track</li>
+                        <li>Bi-directional sync updates</li>
+                        <li>Compliance-ready templates</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="arrow">⬇</div>
+            
+            <!-- Central System -->
+            <div class="system-section central-system">
+                <div class="section-title">Promptly - Single Source of Truth</div>
+                
+                <div class="component central-component">
+                    <div class="integration-badge">Core System</div>
+                    <h3><span class="promptly-highlight">Promptly</span> Preference Hub</h3>
+                    <ul class="feature-list">
+                        <li>Centralized marketing consent tracking</li>
+                        <li>Subject-based opt-ins (LASIK, Cosmetic, All)</li>
+                        <li>CRM group mapping and synchronization</li>
+                        <li>Separate reminder/recall preferences</li>
+                        <li>Multiple contact method support</li>
+                        <li>Patient self-service portal access</li>
+                        <li>Comprehensive audit logging</li>
+                        <li>Lead ID storage and management</li>
+                        <li>Real-time bi-directional sync</li>
+                        <li>HIPAA-compliant data handling</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="arrow">⬇</div>
+            
+            <!-- Integration Layer -->
+            <div class="system-section integration-layer">
+                <div class="section-title">External System Integration</div>
+                
+                <div class="component integration-component">
+                    <h3>MDP/CRM Integration</h3>
+                    <ul class="feature-list">
+                        <li>Receives real-time opt-in changes from <span class="promptly-highlight">Promptly</span></li>
+                        <li>Sends patient creation data to <span class="promptly-highlight">Promptly</span> with opt in preferences</li>
+                        <li>Subject group mapping (LASIK, Cosmetic, All)</li>
+                        <li>Automated campaign suppression based on patient/lead opt out</li>
+                        <li><span class="promptly-highlight">Promptly</span> ID field storage</li>
+                        <li>Lead ID synchronization</li>
+                        <li>API-driven communication</li>
+                    </ul>
+                </div>
+                
+                <div class="component integration-component">
+                    <h3>Marketing Automation</h3>
+                    <ul class="feature-list">
+                        <li>Instant opt-out processing</li>
+                        <li>Campaign suppression lists</li>
+                        <li>Real-time preference updates</li>
+                        <li>Compliance monitoring</li>
+                        <li>Automated workflow pausing</li>
+                        <li>Preference-based segmentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Data Flow Process -->
+        <div class="data-flow">
+            <h3>Integrated Data Flow Process</h3>
+            
+            <div class="flow-step">
+                <div class="step-number">1</div>
+                <div class="step-text">
+                    <strong>Initial Setup:</strong> <span class="promptly-highlight">Promptly</span> reads existing Practice Management data for baseline preferences. Patient records sync with Lead ID generation for CRM integration.
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">2</div>
+                <div class="step-text">
+                    <strong>Master Control Established:</strong> <span class="promptly-highlight">Promptly</span> becomes the authoritative source for all marketing consent preferences, overriding any conflicting data from other systems.
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">3</div>
+                <div class="step-text">
+                    <strong>Consent Capture:</strong> Any patient touchpoint (website, portal, kiosk, staff override, or paperwork) captures consent changes and updates <span class="promptly-highlight">Promptly</span> as the central hub.
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">4</div>
+                <div class="step-text">
+                    <strong>Document Sync:</strong> Physical consent paperwork is digitally synced to patient record in <span class="promptly-highlight">Promptly</span> for audit compliance and reference documentation.
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">5</div>
+                <div class="step-text">
+                    <strong>Subject-Based Preference Distribution:</strong> <span class="promptly-highlight">Promptly</span> pushes preference changes with specific subject selections (LASIK, Cosmetic Procedures, All) to corresponding CRM groups for targeted marketing campaigns.
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">6</div>
+                <div class="step-text">
+                    <strong>Marketing Control:</strong> CRM receives preference updates from <span class="promptly-highlight">Promptly</span> and immediately adjusts automated marketing campaigns accordingly.
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">7</div>
+                <div class="step-text">
+                    <strong>Patient Control:</strong> Patients access self-service portal through <span class="promptly-highlight">Promptly</span> to manage marketing and reminder preferences, with all changes flowing from this central hub.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Technical Requirements -->
+        <div class="technical-requirements">
+            <h3>Technical Integration Requirements</h3>
+            
+            <div class="req-item">
+                <strong><span class="promptly-highlight">Promptly</span> Database Enhancement:</strong> Add dedicated "Lead_ID" field, "Consent_Document_URL" field, and "Subject_Groups" array (LASIK, Cosmetic, All) to patient data tables for CRM group mapping
+            </div>
+            
+            <div class="req-item">
+                <strong>MDP/CRM Database Enhancement:</strong> Implement "<span class="promptly-highlight">Promptly</span>_ID" field in patient records for integration while recognizing <span class="promptly-highlight">Promptly</span> as master control for marketing consent
+            </div>
+            
+            <div class="req-item">
+                <strong>API Integration Layer:</strong> Develop uni-directional sync from <span class="promptly-highlight">Promptly</span> to external systems ensuring <span class="promptly-highlight">Promptly</span> maintains authoritative control over marketing preferences
+            </div>
+            
+            <div class="req-item">
+                <strong>Document Management System:</strong> Digital capture and storage of physical consent paperwork with direct linking to patient records for audit compliance and reference
+            </div>
+            
+            <div class="req-item">
+                <strong>Comprehensive Audit System:</strong> Track all consent changes with detailed timestamps, source attribution, staff identification, and document references for complete compliance trail
+            </div>
+            
+            <div class="req-item">
+                <strong>Dual-Track Compliance:</strong> Maintain separate preference tracking for marketing versus reminder/recall communications with distinct contact methods and <span class="promptly-highlight">Promptly</span>-controlled rules
+            </div>
+        </div>
+        
+        <!-- Patient Portal Mockup -->
+        <div class="patient-portal-mockup">
+            <h3>Patient Portal Interface Mockup</h3>
+            <div class="mockup-container">
+                <div class="portal-header">
+                    <div class="portal-logo">Promptly</div>
+                    <div class="patient-name">Welcome, Sarah Johnson</div>
+                </div>
+                
+                <div class="portal-section">
+                    <h4>Communication Preferences</h4>
+                    
+                    <div class="preference-group">
+                        <div class="preference-title">
+                            <span class="icon">📧</span>
+                            Marketing Communications
+                        </div>
+                        <div class="preference-controls">
+                            <div class="toggle-group">
+                                <label class="toggle-label">
+                                    <input type="checkbox" class="toggle-input" checked>
+                                    <span class="toggle-slider"></span>
+                                    Email Marketing
+                                </label>
+                                <span class="contact-info">sarah.johnson@email.com</span>
+                            </div>
+                            <div class="toggle-group">
+                                <label class="toggle-label">
+                                    <input type="checkbox" class="toggle-input">
+                                    <span class="toggle-slider"></span>
+                                    SMS Marketing
+                                </label>
+                                <span class="contact-info">(555) 123-4567</span>
+                            </div>
+                        </div>
+                        <div class="interest-tags">
+                            <span class="tag active">LASIK</span>
+                            <span class="tag active">Cosmetic Procedures</span>
+                            <span class="tag">All Services</span>
+                            <span class="tag">Wellness Tips</span>
+                        </div>
+                    </div>
+                    
+                    <div class="preference-group">
+                        <div class="preference-title">
+                            <span class="icon">⏰</span>
+                            Appointment Reminders
+                        </div>
+                        <div class="preference-controls">
+                            <div class="toggle-group">
+                                <label class="toggle-label">
+                                    <input type="checkbox" class="toggle-input" checked>
+                                    <span class="toggle-slider"></span>
+                                    Email Reminders
+                                </label>
+                                <span class="contact-info">sarah.johnson@email.com</span>
+                            </div>
+                            <div class="toggle-group">
+                                <label class="toggle-label">
+                                    <input type="checkbox" class="toggle-input" checked>
+                                    <span class="toggle-slider"></span>
+                                    SMS Reminders
+                                </label>
+                                <span class="contact-info">(555) 123-4567</span>
+                            </div>
+                        </div>
+                        <div class="reminder-timing">
+                            <label>Remind me: 
+                                <select class="timing-select">
+                                    <option>24 hours before</option>
+                                    <option>48 hours before</option>
+                                    <option>1 week before</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="consent-documents">
+                        <div class="preference-title">
+                            <span class="icon">📄</span>
+                            Consent Documentation
+                        </div>
+                        <div class="document-list">
+                            <div class="document-item">
+                                <span class="doc-name">Marketing Consent Form - Signed 03/15/2024</span>
+                                <button class="view-doc-btn">View</button>
+                            </div>
+                            <div class="document-item">
+                                <span class="doc-name">Communication Preferences - Updated 03/15/2024</span>
+                                <button class="view-doc-btn">View</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="portal-actions">
+                        <button class="save-btn">Save Preferences</button>
+                        <button class="cancel-btn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        .patient-portal-mockup {
+            background: #f8f9ff;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 40px;
+            border: 2px solid #2069f7;
+        }
+        
+        .patient-portal-mockup h3 {
+            color: #2069f7;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        
+        .mockup-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .portal-header {
+            background: #2069f7;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .portal-logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .patient-name {
+            font-size: 16px;
+        }
+        
+        .portal-section {
+            padding: 30px;
+        }
+        
+        .portal-section h4 {
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            font-size: 20px;
+        }
+        
+        .preference-group {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            border-left: 4px solid #2069f7;
+        }
+        
+        .preference-title {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+            font-size: 16px;
+        }
+        
+        .icon {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .preference-controls {
+            margin-bottom: 15px;
+        }
+        
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px 0;
+        }
+        
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .toggle-input {
+            display: none;
+        }
+        
+        .toggle-slider {
+            width: 50px;
+            height: 24px;
+            background: #ccc;
+            border-radius: 24px;
+            margin-right: 10px;
+            position: relative;
+            transition: background 0.3s;
+        }
+        
+        .toggle-slider:before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-input:checked + .toggle-slider {
+            background: #00dd84;
+        }
+        
+        .toggle-input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+        
+        .contact-info {
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .interest-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            padding: 4px 12px;
+            background: #e5e7eb;
+            border-radius: 16px;
+            font-size: 12px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tag.active {
+            background: #2069f7;
+            color: white;
+        }
+        
+        .reminder-timing {
+            margin-top: 10px;
+        }
+        
+        .timing-select {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-left: 5px;
+        }
+        
+        .consent-documents {
+            margin-bottom: 20px;
+        }
+        
+        .document-list {
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .document-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .document-item:last-child {
+            border-bottom: none;
+        }
+        
+        .doc-name {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .view-doc-btn {
+            background: #2069f7;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .portal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .save-btn {
+            background: #00dd84;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .save-btn:hover {
+            background: #00c875;
+        }
+        
+        .cancel-btn {
+            background: #e5e7eb;
+            color: #555;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .cancel-btn:hover {
+            background: #d1d5db;
+        }
+    </style>
+</body>
+</html>
